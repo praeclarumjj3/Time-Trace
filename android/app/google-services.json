@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "667762864251",
+    "firebase_url": "https://timetrace-a3d14.firebaseio.com",
+    "project_id": "timetrace-a3d14",
+    "storage_bucket": "timetrace-a3d14.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:667762864251:android:7720c1726a69661d3632de",
+        "android_client_info": {
+          "package_name": "com.example.time_trace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "667762864251-70vqo4s7drli67s2lak42bhhaaihn0ng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApBkl5rXtgFrNyAqt_BljiWSml-kOAao0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "667762864251-70vqo4s7drli67s2lak42bhhaaihn0ng.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
