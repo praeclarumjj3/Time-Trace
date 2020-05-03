@@ -11,6 +11,9 @@ import 'firestore.dart';
 
 class MyListPage extends StatefulWidget {
 
+  MyListPage({Key key, this.title}) : super(key: key);
+  String title;
+
   @override
   _MyListPageState createState() => _MyListPageState();
 }
@@ -30,7 +33,7 @@ class _MyListPageState extends State<MyListPage> {
   void initState() {
     super.initState();
     //shared_init();
-    title = "JJ";
+    title = widget.title;
     steps = database.getSteps();
   }
 
@@ -47,7 +50,7 @@ class _MyListPageState extends State<MyListPage> {
     return Scaffold(
           appBar: new AppBar(
             automaticallyImplyLeading: true,
-            title: new Text("$title's Steps to Success",
+            title: new Text("Steps to Success",
                 style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                         fontStyle: FontStyle.italic,
@@ -90,7 +93,7 @@ class _MyListPageState extends State<MyListPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        "Add Steps to better utilize your time $title!",
+                        "Add Steps to better utilize your time!",
                         style: GoogleFonts.poppins(
                             textStyle: TextStyle(
                                 fontSize: ScreenUtil()

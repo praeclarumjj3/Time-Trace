@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_duration_picker/flutter_duration_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_trace/firestore.dart';
 import 'package:time_trace/home.dart';
+import 'package:time_trace/root.dart';
 import 'package:time_trace/task.dart';
 import 'package:time_trace/today.dart';
 
@@ -32,9 +34,10 @@ class _TaskCardState extends State<TaskCard>
   int minutes;
   Database database = Database();
 
+
   @override
   void initState() {
-    super.initState();
+
     _animationController =
         AnimationController(vsync: this, duration: Duration(microseconds: 300));
     isPlaying = widget.task.status;
@@ -48,6 +51,7 @@ class _TaskCardState extends State<TaskCard>
     isPlaying
         ? startWatch()
         : stopWatch();
+    super.initState();
   }
 
   @override
@@ -194,8 +198,12 @@ class _TaskCardState extends State<TaskCard>
               icon: Icon(Icons.delete),
               onPressed: () {database.deleteTask(widget.task);
               Future.delayed(Duration(milliseconds: 500), () {
-                Navigator.pushAndRemoveUntil(context,
-                    MaterialPageRoute(builder: (BuildContext context) => TodayPage()),
+                Navigator.of(context).pop();
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            TodayPage()),
                         (Route<dynamic> route) => false);
               });
               }),

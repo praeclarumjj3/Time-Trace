@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_duration_picker/flutter_duration_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_trace/firestore.dart';
 import 'package:time_trace/home.dart';
 import 'package:time_trace/optimizer.dart';
@@ -24,15 +25,6 @@ class StepCard extends StatefulWidget {
 class _StepCardState extends State<StepCard> {
   Database database = Database();
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,12 +76,13 @@ class _StepCardState extends State<StepCard> {
                           onPressed: () {
                             database.deleteOptimizer(widget.string);
                             Future.delayed(Duration(milliseconds: 500), () {
+                              Navigator.of(context).pop();
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
                                           MyHomePage(
-                                            index: 2,
+                                            index: 2
                                           )),
                                   (Route<dynamic> route) => false);
                             });
