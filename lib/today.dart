@@ -70,7 +70,7 @@ class _TodayPageState extends State<TodayPage> {
     int hours = int.parse(hr);
     int trackSeconds = ((hours*3600) + (minutes*60) + seconds);
     setState(() {
-      percent = (trackSeconds/864).truncate();
+      percent = (trackSeconds/864).round();
       trackedTime = totalTrack;
     });
 
