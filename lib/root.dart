@@ -28,13 +28,11 @@ class _RootPageState extends State<RootPage> {
         name = sharedPreferences.get('name');
       });
     });
-    print("$name,Home");
   }
 
   @override
   Widget build(BuildContext context) {
     restore();
-    print(name);
     if (name.toString() == "null") {
       return new NamePage();
     } else {
