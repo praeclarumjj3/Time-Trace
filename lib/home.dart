@@ -3,10 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_trace/destination.dart';
 import 'package:time_trace/optimizer.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:time_trace/root.dart';
+import 'package:time_trace/sharedprefs.dart';
 import 'package:time_trace/today.dart';
 import 'package:time_trace/week.dart';
 
@@ -26,14 +27,21 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin<M
   StreamSubscription<ConnectivityResult> _connectionSubscription;
   String _connectionStatus;
   bool isLoading;
+  SharedPrefs sharedPrefs = new SharedPrefs();
+  String name;
+  SharedPreferences sharedPreferences;
 
   @override
   void initState() {
-    super.initState();
     _currentIndex = widget.index;
     checkConnection();
     isLoading = false;
+    super.initState();
+
+
   }
+
+
 
   void checkConnection(){
     _connectionSubscription = _connectivity.onConnectivityChanged.listen((ConnectivityResult result){

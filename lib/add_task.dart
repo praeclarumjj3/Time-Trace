@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_trace/firestore.dart';
 import 'package:time_trace/sharedprefs.dart';
 import 'package:intl/intl.dart';
+import 'package:time_trace/today.dart';
 
 import 'home.dart';
 
@@ -177,11 +178,12 @@ class AddTaskState extends State<AddTask> {
                             if (controller.text != null && controller.text.length > 0) {
                               AddTaskToFirestore(
                                   controller.text, status, _duration.toString());
+                              Navigator.of(context).pop();
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
-                                          MyHomePage(index:0)),
+                                         MyHomePage(index: 0)),
                                   (Route<dynamic> route) => false);
                             } else {
                               Fluttertoast.showToast(

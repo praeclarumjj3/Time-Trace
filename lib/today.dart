@@ -19,6 +19,8 @@ import 'package:time_trace/task_card.dart';
 
 class TodayPage extends StatefulWidget {
 
+  TodayPage({Key key, this.title}) : super(key: key);
+  String title;
   @override
   _TodayPageState createState() => _TodayPageState();
 }
@@ -44,7 +46,7 @@ class _TodayPageState extends State<TodayPage> {
   void initState() {
     super.initState();
     //shared_init();
-    title = "JJ";
+    title = widget.title;
     dateFormat = DateFormat('dd/MM/yyyy');
     date = dateFormat.format(now);
     tasks = database.determineDatedTasks(date);
@@ -68,7 +70,7 @@ class _TodayPageState extends State<TodayPage> {
     int hours = int.parse(hr);
     int trackSeconds = ((hours*3600) + (minutes*60) + seconds);
     setState(() {
-      percent = (trackSeconds/864).truncate();
+      percent = (trackSeconds/864).round();
       trackedTime = totalTrack;
     });
 
@@ -83,7 +85,7 @@ class _TodayPageState extends State<TodayPage> {
       home: Scaffold(
           appBar: new AppBar(
             automaticallyImplyLeading: true,
-            title: new Text("$title's Time Performance",
+            title: new Text("Time Performance",
                 style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                         fontStyle: FontStyle.italic,
@@ -231,7 +233,7 @@ class _TodayPageState extends State<TodayPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        "Add Tasks to better track your time $title!",
+                        "Add Tasks to better track your time!",
                         style: GoogleFonts.poppins(
                             textStyle: TextStyle(
                                 fontSize: ScreenUtil()

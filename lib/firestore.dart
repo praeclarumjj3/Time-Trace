@@ -12,11 +12,10 @@ class Database {
 
   Future<void> addTask(String description, String duration, String date,
       bool status) async {
-//    final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-//    String name = sharedPrefs.getString('name');
-//    name = "jj";
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String name = sharedPreferences.get('name');
 
-    DocumentReference ref = await databaseReference.collection("jj")
+    DocumentReference ref = await databaseReference.collection(name)
         .add({
       'description': description,
       'duration': duration,
@@ -31,8 +30,10 @@ class Database {
   Future UpdateTask(Task task, String description, String duration, String date,
       bool status) async {
     final id = await GetTaskID(task);
-    await databaseReference
-        .collection('jj')
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String name = sharedPreferences.get('name');
+
+   await databaseReference.collection(name)
         .document(id)
         .updateData({
       'description': description,
@@ -44,12 +45,14 @@ class Database {
 
 
   Future<String> GetTaskID(Task task) async {
-//    final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-//    String name = sharedPrefs.getString('name');
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String name = sharedPreferences.get('name');
+
+
     var id;
     List<DocumentSnapshot> templist;
     List<Task> _ = new List();
-    QuerySnapshot taskSnapshot = await databaseReference.collection("jj")
+    QuerySnapshot taskSnapshot = await databaseReference.collection(name)
         .getDocuments();
     templist = taskSnapshot.documents;
     _ = templist.map((DocumentSnapshot docSnapshot) {
@@ -64,11 +67,10 @@ class Database {
 
   Future<void> deleteTask(Task task) async {
     try {
-//        final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-//        String name = sharedPrefs.getString('name');
-//        name = "jj";
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      String name = sharedPreferences.get('name');
       final id = await GetTaskID(task);
-      await databaseReference.collection("jj")
+      await databaseReference.collection(name)
           .document(id)
           .delete();
     } catch (e) {
@@ -77,12 +79,11 @@ class Database {
   }
 
   Future <List<Task>> getTasks() async {
-//    final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-//    String name = sharedPrefs.getString('name');
-//    name = "jj";
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String name = sharedPreferences.get('name');
     List<DocumentSnapshot> templist;
     List<Task> tasksList = new List();
-    QuerySnapshot tasksSnapshot = await databaseReference.collection("jj")
+    QuerySnapshot tasksSnapshot = await databaseReference.collection(name)
         .getDocuments();
     templist = tasksSnapshot.documents;
     tasksList = templist.map((DocumentSnapshot docSnapshot) {
@@ -143,23 +144,20 @@ class Database {
 
 
   Future<void> addOptimizer(String string) async{
-//    final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-//    String name = sharedPrefs.getString('name');
-//    name = "jj";
-
-    await databaseReference.collection('jj').document("optimizers").collection('steps to improve').add({
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String name = sharedPreferences.get('name');
+    await databaseReference.collection(name).document("optimizers").collection('steps to improve').add({
       'step': string,
     });
 
   }
 
   Future<List<String>> getSteps() async{
-    //    final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-//    String name = sharedPrefs.getString('name');
-//    name = "jj";
     List<DocumentSnapshot> templist;
     List<String> stepsList = new List();
-    QuerySnapshot stepsSnapshot = await databaseReference.collection("jj").document("optimizers").collection("steps to improve")
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String name = sharedPreferences.get('name');
+    QuerySnapshot stepsSnapshot = await databaseReference.collection(name).document("optimizers").collection("steps to improve")
         .getDocuments();
     templist = stepsSnapshot.documents;
     stepsList = templist.map((DocumentSnapshot docSnapshot) {
@@ -171,12 +169,12 @@ class Database {
   }
 
   Future<String> GetOptimizerID(String string) async {
-//    final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-//    String name = sharedPrefs.getString('name');
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String name = sharedPreferences.get('name');
     var id;
     List<DocumentSnapshot> templist;
     List<Task> _ = new List();
-    QuerySnapshot taskSnapshot = await databaseReference.collection("jj").document("optimizers").collection("steps to improve")
+    QuerySnapshot taskSnapshot = await databaseReference.collection(name).document("optimizers").collection("steps to improve")
         .getDocuments();
     templist = taskSnapshot.documents;
     _ = templist.map((DocumentSnapshot docSnapshot) {
@@ -191,11 +189,10 @@ class Database {
   Future<void> deleteOptimizer(String string) async{
 
     try {
-//        final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-//        String name = sharedPrefs.getString('name');
-//        name = "jj";
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      String name = sharedPreferences.get('name');
       final id = await GetOptimizerID(string);
-      await databaseReference.collection('jj').document("optimizers").collection('steps to improve')
+      await databaseReference.collection(name).document("optimizers").collection('steps to improve')
           .document(id)
           .delete();
     } catch (e) {

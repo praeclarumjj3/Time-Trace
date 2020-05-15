@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_screenutil/screenutil.dart';
@@ -5,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:time_trace/home.dart';
+import 'package:time_trace/sharedprefs.dart';
 
 
 class NamePage extends StatefulWidget {
@@ -18,10 +21,22 @@ class _NamePageState extends State<NamePage> {
 
   FocusNode myFocusNode;
   TextEditingController controller;
-//  SharedPrefs sharedPrefs = new SharedPrefs();
+ SharedPrefs sharedPrefs = new SharedPrefs();
   KeyboardVisibilityNotification _keyboardVisibility = new KeyboardVisibilityNotification();
   int _keyboardVisibilitySubscriberId;
   bool _keyboardState;
+  SharedPreferences sharedPreferences;
+
+  void restore() async{
+    setState(() {
+      update();
+    });
+
+  }
+
+  void update() async{
+    sharedPreferences = await SharedPreferences.getInstance();
+  }
 
   @override
   void initState() {
@@ -62,7 +77,7 @@ class _NamePageState extends State<NamePage> {
     return Scaffold(
         appBar: new AppBar(
           automaticallyImplyLeading: true,
-          title: new Text("Time Trace",
+          title: new Text("Time Tracer",
               style: GoogleFonts.poppins(
                   textStyle: TextStyle(
                       fontSize:
@@ -133,13 +148,20 @@ class _NamePageState extends State<NamePage> {
     ));
   }
 
-  void save() async {
-    final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-    sharedPrefs.setString('name', "123");
+  void save(String string) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setString('name', string);
+    String name = sharedPreferences.get('name');
+    print("set: $name");
   }
 
 
     Widget btn(){
+      String name = "";
+      restore();
+      setState(() {
+        name = sharedPreferences.get('name');
+      });
     return ButtonTheme(
           height: ScreenUtil().setHeight(45),
           child: RaisedButton(
@@ -148,9 +170,9 @@ class _NamePageState extends State<NamePage> {
             onPressed: () {
               FocusScope.of(context).requestFocus(new FocusNode());
               if(controller.text !=null && controller.text.length>0){
-                save();
+                save(controller.text);
                 Navigator.pushAndRemoveUntil(context,
-                    MaterialPageRoute(builder: (BuildContext context) => MyHomePage(index: 0,)),
+                    MaterialPageRoute(builder: (BuildContext context) => MyHomePage(index: 0)),
                         (Route<dynamic> route) => false);
               }
               else{

@@ -28,17 +28,15 @@ class AddStepState extends State<AddStep> {
   String title;
   Database database = new Database();
 
-  void shared_init()async {
-    final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
-    title = (sharedPrefs.getString('name') ?? "");
-  }
+  String name = "";
+
+
 
   @override
   void initState(){
-    super.initState();
     myFocusNode = new FocusNode();
     controller = new TextEditingController();
-    shared_init();
+    super.initState();
   }
 
   @override
@@ -52,6 +50,8 @@ class AddStepState extends State<AddStep> {
       FocusScope.of(context).requestFocus(myFocusNode);
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {

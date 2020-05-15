@@ -2,7 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs{
 
-  void save(String key, dynamic value) async {
+  Future<void> save(String key, dynamic value) async {
     final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
     if (value is bool) {
       sharedPrefs.setBool(key, value);
@@ -18,8 +18,8 @@ class SharedPrefs{
   }
 
 
-  void SaveName(String name) async{
-    save("name", name);
+  Future SaveName(String name) async{
+    await save("name", name);
   }
 
 
